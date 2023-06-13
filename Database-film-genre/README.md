@@ -15,7 +15,7 @@
 1.	Membuat database baru dengan nama db_film
      ![P1](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/ab286461-1309-4376-8a87-9a47b217c215)
 2.	membuat tabel baru dengan nama film dan colom sesuai dengan kebutuhan 
- 
+      ![P2](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/d0af9cac-bd21-4e46-af19-239c634563f5)
 3.	menambahkan data pada tabel film 
  
 4.	mengubungkan codeigniter dengan database dengan mengedit file .env 

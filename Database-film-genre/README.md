@@ -13,7 +13,7 @@
 
 # Hasil dan pembahasan 
 1.	Membuat database baru dengan nama db_film
-     ![image.png]( {https://github.com/roma84011/Pemrograman-Framework/blob/main/Database-film-genre/gambar-git/P1.png} )
+     ![P1.png]( {https://github.com/roma84011/Pemrograman-Framework/blob/main/Database-film-genre/gambar-git/P1.png} )
 2.	membuat tabel baru dengan nama film dan colom sesuai dengan kebutuhan 
  
 3.	menambahkan data pada tabel film 

@@ -12,15 +12,15 @@
 6.	MS. Word
 
 # Hasil dan pembahasan 
-1.	Membuat database baru dengan nama db_film
-     ![P1](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/abc7356d-f8ff-48d0-9e09-ab35a706d51a)
-2.	membuat tabel baru dengan nama film dan colom sesuai dengan kebutuhan 
+1.	Membuat database baru dengan nama db_film.
+  	![P1](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/abc7356d-f8ff-48d0-9e09-ab35a706d51a)
+3.	membuat tabel baru dengan nama film dan colom sesuai dengan kebutuhan 
       ![P2](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/d0af9cac-bd21-4e46-af19-239c634563f5)
-3.	menambahkan data pada tabel film 
+4.	menambahkan data pada tabel film 
  
-4.	mengubungkan codeigniter dengan database dengan mengedit file .env 
+5.	mengubungkan codeigniter dengan database dengan mengedit file .env 
  
-5.	membuat file pada controller/film.php 
+6.	membuat file pada controller/film.php 
 <?php
 
 namespace App\Controllers;

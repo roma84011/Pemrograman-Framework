@@ -1,54 +1,250 @@
-# CodeIgniter 4 Framework
+# Tujuan Pembelajaran 
+1.	Mampu memahami tentang framework php
+2.	Mampu mengimplementasikan perintah pada framework php
+3.	Mahasiswa dapat Menggunakan framework php
 
-## What is CodeIgniter?
+# Alat dan Bahan yang digunakan
+1.	Text Editor
+2.	Codeignite 
+3.	Gitbash 
+4.	Composer
+5.	Laptop/PC
+6.	MS. Word
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+# Hasil dan pembahasan 
+1.	Membuat database baru dengan nama db_film
+     
+2.	membuat tabel baru dengan nama film dan colom sesuai dengan kebutuhan 
+ 
+3.	menambahkan data pada tabel film 
+ 
+4.	mengubungkan codeigniter dengan database dengan mengedit file .env 
+ 
+5.	membuat file pada controller/film.php 
+<?php
 
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+namespace App\Controllers;
+use App\Controllers\BaseController;
+use App\Models\FilmModel;
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+class Film extends BaseController
+{
+    //step 2
+    protected $Film;
 
-The user guide corresponding to the latest version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+    public function __construct()
+    {
+        //step 4 memanggil 
+        $this -> Film = new FilmModel();
+    }
 
-## Important Change with index.php
+    //fungsi yang akan diakses pada url nanti
+    public function all(){
+    $data['semuaFilm'] = $this -> Film -> getAllData();
+    return view("Film/semuaFilm", $data);
+    }  
+}
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+pada bagian function all, digunakan untuk pengaksesan pada url nanti dan untuk bagian getAllData digunakan untuk memangil function pada bagian model
+6.	membuat file pada Model/FilmModel.php
+<?php
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+namespace App\Models;
 
-**Please** read the user guide for a better explanation of how CI4 works!
+use CodeIgniter\Model;
 
-## Repository Management
+class FilmModel extends Model
+{
+    //menyambungkan ke dalam tabel film secara langsung
+    protected $table ='film';
+    //apabila akan insert di database makan di secara langsung akan memberikan id dengan menlanjutkan id yang sudah ada
+    protected $primaryKey ='id';
+    //ketika insert menggunakan fungsi ci diakan melakukan autoincremen pada data yg kita tambahkan
+    protected $useAutoIncrement = true;
+    //mengisinkan apakah data dapat di update, delete dan insert pada kolom
+    protected $allowField =[];
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+    //fungsi untuk menampilkan seluruh data
+    public function getAllData(){
+        //return mengembalikan data
+        return $this -> FindAll();
+    }
+}
+7.	membuat file pada view/semuaFilm.php yang digunakna untuk menampilkan hasil yang telah di kerjakan
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data film</title>
+</head>
+<body>
+    <h1>Data Film</h1>
+    <table border ="1" cellspacing="2" cellpadding="5">
+        <tr>
+            <th>No</th>
+            <th>Cover</th>
+            <th>Nama Film</th>
+            <th>Genre</th>
+            <th>Durasi</th>
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+        </tr>
+        <?php $i = 1 ;?>
+        <?php foreach($semuaFilm as $film): ?>
+            <tr>
+                <td><?= $i++;?></td>
+                <td >
+                    <img style="width: 50px;" src="/assets/cover/<?= $film ['cover']?>" alt="">
+                </td>
+                <td><?php echo $film['nama_film']?></td>
+                <td><?= $film['genre']?></td>
+                <td><?= $film['duration']?></td>
+            </tr>
+        <?php endforeach;?>
+    </table>
+</body>
+</html>
 
-## Contributing
+8.	menampilkan data yang telah di buat dengan peritah localhost:8080/film/all
+ 
+9.	menampilkan data dengan kondisi sesuai dengan id, dengan menggunakan find ($id)
+tambahan fungsi pada FilmModel.php
+ 
+selanjutnya panggil pada controller/Film.php
+ 
+hasilnya :
+ 
 
-We welcome contributions from the community.
+10.	menampilkan data dengan kondisi sesuai dengan judul, dengan menggunakan where
+tambahan fungsi pada FilmModel.php
+ 
+selanjutnya panggil pada controller/Film.php
+ 
+hasilnya :
+ 
 
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
+11.	menampilkan data dengan fungsi orderby, dengan menggunakan orderby pada bagian ini data created_at akan di urutkan.
+tambahan fungsi pada FilmModel.php
+ 
+selanjutnya panggil pada controller/Film.php
+ 
+hasilnya :
+ 
+12.	menampilkan data dengan fungsi limit, dengan menggunakan limit untuk menampilkan data sesuai dengan limit yang telah di tentukan 
+tambahan fungsi pada FilmModel.php
+ 
+selanjutnya panggil pada controller/Film.php
+ 
+hasilnya :
+ 
+13.	menampilkan data dengan fungsi builder, dengan menggunakan builder maka yang di tampilkan hanya kolom tertentu pada tabel
+tambahan fungsi pada FilmModel.php
+ 
+selanjutnya panggil pada controller/Film.php
+ 
+hasilnya :
+ 
 
-## Server Requirements
+# Tugas
 
-PHP version 7.4 or higher is required, with the following extensions installed:
+1.	Menambhalan tabel pada database db_film dengan nama tabel genre
+ 
+2.	Menampilkan data genre d ihalaman html, jika untuk di menampilkan data film kita film/all untuk menampilkan data genre aksesnya adalah genre/all
+•	membuat file controller/genre
+<?php
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+namespace App\Controllers;
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+use App\Controllers\BaseController;
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+//step 1
+use App\Models\GenreModel;
+
+class Genre extends BaseController
+{
+    //step 2
+    protected $Genre;
+    //step 3 membuat fungsi construct untuk inisiasi class model(filmmodel)
+    public function __construct()
+    {
+        //step 4 memanggil 
+        $this -> Genre = new GenreModel();
+    }
+
+    $data['semuaGenre'] = $this -> Genre -> getAllData();
+    return view("Genre/semuaGenre", $data);
+    }            
+
+}
+
+
+•	membuat file model/GenreModel.php
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class GenreModel extends Model
+{
+    //menyambungkan ke dalam tabel film secara langsung
+    protected $table ='genre';
+    //apabila akan insert di database makan di secara langsung akan memberikan id dengan menlanjutkan id yang sudah ada
+    protected $primaryKey ='id';
+    //ketika insert menggunakan fungsi ci diakan melakukan autoincremen pada data yg kita tambahkan
+    protected $useAutoIncrement = true;
+    //mengisinkan apakah data dapat di update, delete dan insert pada kolom
+    protected $allowField =[];
+
+    //fungsi untuk menampilkan seluruh data
+    public function getAllData(){
+        //return mengembalikan data
+        return $this -> FindAll();
+    }
+}
+
+•	membuat file view/semuagenre.php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data film</title>
+</head>
+<body>
+    <h1>Data Genre</h1>
+    <table border ="1" cellspacing="2" cellpadding="5">
+        <tr>
+            <th>No</th>
+            <th>Nama genre</th>
+            <th>Dibuat</th>
+            <th>Diupdate</th>
+           
+
+        </tr>
+        <?php $i = 1 ;?>
+        <?php foreach($semuaGenre as $Genre): ?>
+            <tr>
+                <td><?= $i++;?></td>
+                <td><?php echo $Genre['nama_genre']?></td>
+                <td><?php echo $Genre['created_at']?></td>
+                <td><?= $Genre['updated_at']?></td>
+            </tr>
+        <?php endforeach;?>
+    </table>
+</body>
+</html>
+
+
+
+
+
+Hasilnya :
+ 
+3.	ubah tabel film pada kolom genre menjadi id_genre,, isi datanya sesuai dengan data pada tabel genre
+ 
+4.	saat menjalankan film/all pastina tidak ada error, artinya codingya harus disesuaikan karena menganti genre manjadi id genre.
+ 
+link github : 

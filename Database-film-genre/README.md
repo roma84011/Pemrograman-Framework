@@ -13,106 +13,125 @@
 
 # Hasil dan pembahasan 
 1.	Membuat database baru dengan nama db_film.
+
   	![P1](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/abc7356d-f8ff-48d0-9e09-ab35a706d51a)
-3.	membuat tabel baru dengan nama film dan colom sesuai dengan kebutuhan 
-      ![P2](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/d0af9cac-bd21-4e46-af19-239c634563f5)
-4.	menambahkan data pada tabel film 
+2.	membuat tabel baru dengan nama film dan colom sesuai dengan kebutuhan 
+
+  	 ![P2](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/d0af9cac-bd21-4e46-af19-239c634563f5)
+3.	menambahkan data pada tabel film 
+
+  	 ![P3](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/a1b64556-2f02-40f0-b8e4-2ec39bca9517)
+
+4.	mengubungkan codeigniter dengan database dengan mengedit file .env 
  
-5.	mengubungkan codeigniter dengan database dengan mengedit file .env 
- 
-6.	membuat file pada controller/film.php 
-<?php
-
-namespace App\Controllers;
-use App\Controllers\BaseController;
-use App\Models\FilmModel;
-
-class Film extends BaseController
-{
-    //step 2
-    protected $Film;
-
-    public function __construct()
+     ![P4](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/0fa93da7-a3bd-4e03-ae43-36d444d92731)
+  	
+5.	membuat file pada controller/film.php 
+    ```bash
+    <?php
+    namespace App\Controllers;
+    use App\Controllers\BaseController;
+    use App\Models\FilmModel;
+    
+    class Film extends BaseController
     {
-        //step 4 memanggil 
-        $this -> Film = new FilmModel();
+        //step 2
+        protected $Film;
+    
+        public function __construct()
+        {
+            //step 4 memanggil 
+            $this -> Film = new FilmModel();
+        }
+    
+        //fungsi yang akan diakses pada url nanti
+        public function all(){
+        $data['semuaFilm'] = $this -> Film -> getAllData();
+        return view("Film/semuaFilm", $data);
+        }  
     }
-
-    //fungsi yang akan diakses pada url nanti
-    public function all(){
-    $data['semuaFilm'] = $this -> Film -> getAllData();
-    return view("Film/semuaFilm", $data);
-    }  
-}
-
+    ?>
+    ```
 pada bagian function all, digunakan untuk pengaksesan pada url nanti dan untuk bagian getAllData digunakan untuk memangil function pada bagian model
+
 6.	membuat file pada Model/FilmModel.php
-<?php
-
-namespace App\Models;
-
-use CodeIgniter\Model;
-
-class FilmModel extends Model
-{
-    //menyambungkan ke dalam tabel film secara langsung
-    protected $table ='film';
-    //apabila akan insert di database makan di secara langsung akan memberikan id dengan menlanjutkan id yang sudah ada
-    protected $primaryKey ='id';
-    //ketika insert menggunakan fungsi ci diakan melakukan autoincremen pada data yg kita tambahkan
-    protected $useAutoIncrement = true;
-    //mengisinkan apakah data dapat di update, delete dan insert pada kolom
-    protected $allowField =[];
-
-    //fungsi untuk menampilkan seluruh data
-    public function getAllData(){
-        //return mengembalikan data
-        return $this -> FindAll();
+    ```bash
+    <?php
+    namespace App\Models;
+    
+    use CodeIgniter\Model;
+    
+    class FilmModel extends Model
+    {
+        //menyambungkan ke dalam tabel film secara langsung
+        protected $table ='film';
+        //apabila akan insert di database makan di secara langsung akan memberikan id dengan menlanjutkan id yang sudah ada
+        protected $primaryKey ='id';
+        //ketika insert menggunakan fungsi ci diakan melakukan autoincremen pada data yg kita tambahkan
+        protected $useAutoIncrement = true;
+        //mengisinkan apakah data dapat di update, delete dan insert pada kolom
+        protected $allowField =[];
+    
+        //fungsi untuk menampilkan seluruh data
+        public function getAllData(){
+            //return mengembalikan data
+            return $this -> FindAll();
+        }
     }
-}
-7.	membuat file pada view/semuaFilm.php yang digunakna untuk menampilkan hasil yang telah di kerjakan
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>data film</title>
-</head>
-<body>
-    <h1>Data Film</h1>
-    <table border ="1" cellspacing="2" cellpadding="5">
-        <tr>
-            <th>No</th>
-            <th>Cover</th>
-            <th>Nama Film</th>
-            <th>Genre</th>
-            <th>Durasi</th>
+    ```
 
-        </tr>
-        <?php $i = 1 ;?>
-        <?php foreach($semuaFilm as $film): ?>
+7.	membuat file pada view/semuaFilm.php yang digunakna untuk menampilkan hasil yang telah di kerjakan
+    ```bash
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>data film</title>
+    </head>
+    <body>
+        <h1>Data Film</h1>
+        <table border ="1" cellspacing="2" cellpadding="5">
             <tr>
-                <td><?= $i++;?></td>
-                <td >
-                    <img style="width: 50px;" src="/assets/cover/<?= $film ['cover']?>" alt="">
-                </td>
-                <td><?php echo $film['nama_film']?></td>
-                <td><?= $film['genre']?></td>
-                <td><?= $film['duration']?></td>
+                <th>No</th>
+                <th>Cover</th>
+                <th>Nama Film</th>
+                <th>Genre</th>
+                <th>Durasi</th>
+    
             </tr>
-        <?php endforeach;?>
-    </table>
-</body>
-</html>
+            <?php $i = 1 ;?>
+            <?php foreach($semuaFilm as $film): ?>
+                <tr>
+                    <td><?= $i++;?></td>
+                    <td >
+                        <img style="width: 50px;" src="/assets/cover/<?= $film ['cover']?>" alt="">
+                    </td>
+                    <td><?php echo $film['nama_film']?></td>
+                    <td><?= $film['genre']?></td>
+                    <td><?= $film['duration']?></td>
+                </tr>
+            <?php endforeach;?>
+        </table>
+    </body>
+    </html>
+    ```
 
 8.	menampilkan data yang telah di buat dengan peritah localhost:8080/film/all
- 
+
+   ![P5](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/ef39b8c6-8a92-46f5-8e6f-2246ed3bf4ac)
+
 9.	menampilkan data dengan kondisi sesuai dengan id, dengan menggunakan find ($id)
 tambahan fungsi pada FilmModel.php
- 
+
+  	 ![P6](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/6485f3bc-d98b-437b-b75c-804d18d3f1c4)
+
 selanjutnya panggil pada controller/Film.php
- 
+    
+     ![P7](https://github.com/roma84011/Pemrograman-Framework/assets/70304033/b795d993-7cbe-478a-b2e0-ad07bc1de406)
+      
+      <img src="gambar-git/p7.png">
 hasilnya :
  
 
